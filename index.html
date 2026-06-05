@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Les Tigres | Dansschool Purmerend</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --black:   #0a0a0a;
+      --off-black: #111111;
+      --accent:  #FF3300;
+      --gold:    #F5C300;
+      --white:   #f0e8d8;
+      --muted:   #6e6560;
+      --display: 'Bebas Neue', cursive;
+      --body:    'DM Sans', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--body);
+      overflow-x: hidden;
+    }
+
+    img { display: block; max-width: 100%; }
+    a   { color: inherit; text-decoration: none; }
+
+    /* scroll-margin so sticky nav doesn't cover anchors */
+    section[id] { scroll-margin-top: 72px; }
+
+    /* ===== NAV ===== */
+    .nav {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 200;
+      padding: 1.25rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.35s, padding 0.35s, border-color 0.35s;
+      border-bottom: 1px solid transparent;
+    }
+    .nav.scrolled {
+      background: rgba(10,10,10,0.96);
+      padding-top: 0.7rem;
+      padding-bottom: 0.7rem;
+      border-color: rgba(255,255,255,0.06);
+      backdrop-filter: blur(8px);
+    }
+
+    .nav__wordmark {
+      font-family: var(--display);
+      font-size: clamp(1.4rem, 3vw, 1.8rem);
+      letter-spacing: 0.08em;
+      line-height: 1;
+    }
+    .nav__wordmark em { color: var(--accent); font-style: normal; }
+
+    .nav__links {
+      display: none;
+      list-style: none;
+      gap: clamp(1.2rem, 2.5vw, 2.2rem);
+    }
+    @media (min-width: 768px) { .nav__links { display: flex; } }
+    .nav__links a {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      opacity: 0.7;
+      transition: opacity 0.2s, color 0.2s;
+    }
+    .nav__links a:hover { opacity: 1; color: var(--accent); }
+
+    /* Hamburger */
+    .nav__burger {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      min-width: 44px;
+      min-height: 44px;
+      justify-content: center;
+      align-items: center;
+    }
+    @media (min-width: 768px) { .nav__burger { display: none; } }
+    .nav__burger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--white);
+      transform-origin: center;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .nav__burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav__burger.open span:nth-child(2) { opacity: 0; }
+    .nav__burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile drawer */
+    .nav__drawer {
+      position: fixed;
+      inset: 0;
+      background: var(--off-black);
+      z-index: 199;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.77,0,0.18,1);
+    }
+    .nav__drawer.open { transform: none; }
+    .nav__drawer a {
+      font-family: var(--display);
+      font-size: clamp(2.2rem, 9vw, 4rem);
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+    .nav__drawer a:hover { color: var(--accent); }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      height: 100svh;
+      min-height: 580px;
+      display: flex;
+      align-items: flex-end;
+      padding-bottom: clamp(3rem, 7vw, 6rem);
+      clip-path: polygon(0 0, 100% 0, 100% 94%, 0 100%);
+      overflow: hidden;
+    }
+
+    .hero__bg {
+      position: absolute;
+      inset: 0;
+      background: url('4.jpg') center top / cover no-repeat;
+      transform: scale(1.06);
+      will-change: transform;
+    }
+    .hero__bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        110deg,
+        rgba(10,10,10,0.9)  0%,
+        rgba(10,10,10,0.55) 52%,
+        rgba(10,10,10,0.18) 100%
+      );
+    }
+
+    .hero__content {
+      position: relative;
+      z-index: 2;
+      padding: 0 clamp(1.5rem, 6vw, 6rem);
+      max-width: 1400px;
+      width: 100%;
+    }
+
+    .hero__eyebrow {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.2s forwards;
+    }
+
+    .hero__title {
+      font-family: var(--display);
+      font-size: clamp(4rem, 13vw, 9.5rem);
+      line-height: 0.9;
+      letter-spacing: 0.01em;
+      max-width: 11ch;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.4s forwards;
+    }
+    .hero__title .accent { color: var(--accent); }
+
+    .hero__sub {
+      font-size: clamp(0.95rem, 2vw, 1.2rem);
+      font-weight: 300;
+      color: rgba(240,232,216,0.72);
+      margin-top: 1.5rem;
+      max-width: 34ch;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.6s forwards;
+    }
+
+    .hero__ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.8s forwards;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      font-family: var(--body);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0.95rem 2rem;
+      min-height: 48px;
+      cursor: pointer;
+      border: none;
+      transition: transform 0.2s, background 0.2s, border-color 0.2s;
+    }
+    .btn--primary {
+      background: var(--accent);
+      color: var(--black);
+    }
+    .btn--primary:hover { background: #ff5522; transform: translateY(-2px); }
+
+    .btn--ghost {
+      background: transparent;
+      color: var(--white);
+      border: 1.5px solid rgba(240,232,216,0.4);
+    }
+    .btn--ghost:hover {
+      border-color: var(--white);
+      background: rgba(240,232,216,0.07);
+      transform: translateY(-2px);
+    }
+    .btn--lg { font-size: 0.9rem; padding: 1.15rem 2.8rem; }
+
+    /* ===== LEGACY STRIP ===== */
+    .legacy {
+      background: var(--accent);
+      padding: clamp(2.5rem, 6vw, 4rem) 0 clamp(2rem, 5vw, 3.5rem);
+      overflow: hidden;
+      position: relative;
+      z-index: 1;
+    }
+
+    .legacy__statement {
+      padding: 0 clamp(1.5rem, 6vw, 6rem);
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .legacy__headline {
+      font-family: var(--display);
+      font-size: clamp(1.9rem, 5.5vw, 3.8rem);
+      line-height: 1.02;
+      color: var(--black);
+      letter-spacing: 0.015em;
+      max-width: 22ch;
+    }
+
+    .legacy__tape {
+      margin-top: 2rem;
+      border-top: 1px solid rgba(0,0,0,0.18);
+      padding-top: 1.25rem;
+      overflow: hidden;
+    }
+    .legacy__marquee {
+      display: flex;
+      gap: 0;
+      white-space: nowrap;
+      animation: marquee 20s linear infinite;
+      width: max-content;
+    }
+    .legacy__marquee span {
+      font-family: var(--display);
+      font-size: clamp(0.85rem, 2.2vw, 1.2rem);
+      letter-spacing: 0.13em;
+      color: var(--black);
+      opacity: 0.6;
+      padding-right: 3rem;
+    }
+    .legacy__marquee span.sep {
+      opacity: 1;
+      color: var(--black);
+      padding-right: 3rem;
+    }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ===== DANSSTIJLEN ===== */
+    .dansstijlen {
+      padding: clamp(4rem, 10vw, 8rem) clamp(1.5rem, 6vw, 6rem);
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+    }
+    .section-title {
+      font-family: var(--display);
+      font-size: clamp(2.5rem, 7vw, 5.5rem);
+      line-height: 0.92;
+      letter-spacing: 0.015em;
+      margin-bottom: 3rem;
+    }
+
+    .styles-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: rgba(255,255,255,0.06);
+    }
+    @media (min-width: 768px) {
+      .styles-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+
+    .sc {
+      background: var(--off-black);
+      padding: clamp(1.2rem, 3vw, 2rem) clamp(1rem, 2.5vw, 1.75rem);
+      position: relative;
+      overflow: hidden;
+      min-height: 160px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      transition: background 0.3s;
+    }
+    .sc:hover { background: #181818; }
+    .sc:hover .sc__name { color: var(--accent); }
+
+    @media (min-width: 768px) {
+      .sc--w2 { grid-column: span 2; min-height: 200px; }
+    }
+
+    .sc__num {
+      position: absolute;
+      top: -0.6rem;
+      right: 0.4rem;
+      font-family: var(--display);
+      font-size: clamp(3.5rem, 9vw, 6rem);
+      color: rgba(255,255,255,0.04);
+      line-height: 1;
+      user-select: none;
+    }
+    .sc__name {
+      font-family: var(--display);
+      font-size: clamp(1.3rem, 3.5vw, 2.1rem);
+      letter-spacing: 0.015em;
+      line-height: 1;
+      margin-bottom: 0.35rem;
+      transition: color 0.2s;
+    }
+    .sc__desc {
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ===== VOOR WIE ===== */
+    .voorwie { overflow: hidden; }
+
+    .voorwie__header {
+      padding: clamp(3rem, 8vw, 5rem) clamp(1.5rem, 6vw, 6rem) 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .voorwie__panels {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 768px) {
+      .voorwie__panels { grid-template-columns: repeat(3, 1fr); min-height: 580px; }
+    }
+
+    .vp {
+      position: relative;
+      min-height: 360px;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+    .vp__bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.55s ease;
+    }
+    .vp:hover .vp__bg { transform: scale(1.04); }
+    .vp__bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.25) 60%, transparent 100%);
+    }
+    .vp__content {
+      position: relative;
+      z-index: 2;
+      padding: clamp(1.5rem, 3vw, 2.5rem);
+    }
+    .vp__num {
+      display: block;
+      font-family: var(--display);
+      font-size: 0.85rem;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+    .vp__title {
+      font-family: var(--display);
+      font-size: clamp(2rem, 4.5vw, 2.8rem);
+      line-height: 1;
+      letter-spacing: 0.02em;
+      margin-bottom: 0.5rem;
+    }
+    .vp__desc {
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: rgba(240,232,216,0.65);
+    }
+
+    /* ===== OVER LES TIGRES ===== */
+    .over {
+      padding: clamp(5rem, 12vw, 9rem) 0;
+      overflow: hidden;
+    }
+    .over__inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 clamp(1.5rem, 6vw, 6rem);
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: clamp(2.5rem, 6vw, 5rem);
+      align-items: center;
+    }
+    @media (min-width: 768px) {
+      .over__inner { grid-template-columns: 55fr 45fr; }
+    }
+
+    .over__photo-wrap { position: relative; }
+    .over__photo {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+    }
+    .over__badge {
+      position: absolute;
+      bottom: -1.25rem;
+      right: 0;
+      background: var(--accent);
+      color: var(--black);
+      font-family: var(--display);
+      font-size: clamp(0.75rem, 1.8vw, 0.95rem);
+      letter-spacing: 0.1em;
+      padding: 0.65rem 1.1rem;
+      z-index: 2;
+    }
+    @media (min-width: 768px) { .over__badge { right: -1.5rem; } }
+
+    .over__text { padding-top: 1.5rem; }
+
+    .over__title {
+      font-family: var(--display);
+      font-size: clamp(2rem, 5vw, 3.8rem);
+      line-height: 0.92;
+      letter-spacing: 0.015em;
+      margin: 0.6rem 0 1.75rem;
+    }
+
+    .over__body {
+      font-size: clamp(0.9rem, 1.7vw, 1.05rem);
+      font-weight: 300;
+      line-height: 1.8;
+      color: rgba(240,232,216,0.78);
+    }
+    .over__body p + p { margin-top: 1rem; }
+    .over__body strong { color: var(--white); font-weight: 500; }
+
+    .over__stats {
+      display: flex;
+      gap: clamp(1.5rem, 4vw, 3rem);
+      margin-top: 2.5rem;
+      flex-wrap: wrap;
+    }
+    .stat__num {
+      font-family: var(--display);
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      color: var(--accent);
+      line-height: 1;
+    }
+    .stat__num.gold { color: var(--gold); }
+    .stat__label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+
+    /* ===== AGENDA ===== */
+    .agenda {
+      background: var(--off-black);
+      padding: clamp(5rem, 12vw, 9rem) clamp(1.5rem, 6vw, 6rem) clamp(6rem, 14vw, 10rem);
+      clip-path: polygon(0 3.5%, 100% 0, 100% 96.5%, 0 100%);
+      position: relative;
+      z-index: 0;
+    }
+    .agenda__inner { max-width: 1400px; margin: 0 auto; }
+
+    .agenda__list {
+      margin-top: 3rem;
+      display: flex;
+      flex-direction: column;
+    }
+    .agenda__item {
+      display: grid;
+      grid-template-columns: clamp(2.5rem, 5vw, 4.5rem) 1fr;
+      gap: 1rem clamp(1rem, 3vw, 2.5rem);
+      padding: clamp(1.5rem, 3vw, 2.25rem) 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      align-items: start;
+    }
+    .agenda__item:first-child { border-top: 1px solid rgba(255,255,255,0.07); }
+
+    .agenda__num {
+      font-family: var(--display);
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
+      color: rgba(255,255,255,0.05);
+      line-height: 1;
+      text-align: right;
+    }
+    .agenda__body { padding-top: 0.35rem; }
+    .agenda__tag {
+      display: inline-block;
+      font-size: 0.67rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      background: var(--accent);
+      color: var(--black);
+      padding: 0.22rem 0.55rem;
+      margin-bottom: 0.6rem;
+    }
+    .agenda__event {
+      font-family: var(--display);
+      font-size: clamp(1.4rem, 3.5vw, 2.3rem);
+      letter-spacing: 0.015em;
+      line-height: 1.05;
+      margin-bottom: 0.4rem;
+    }
+    .agenda__meta {
+      font-size: 0.83rem;
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    /* ===== CTA ===== */
+    .cta {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 520px;
+      padding: clamp(5rem, 12vw, 9rem) clamp(1.5rem, 6vw, 6rem);
+      overflow: hidden;
+      text-align: center;
+      z-index: 1;
+    }
+    .cta__bg {
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1535525153412-5a042b9bb4a9?w=1200') center / cover no-repeat;
+    }
+    .cta__bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(10,10,10,0.82);
+    }
+    .cta__content {
+      position: relative;
+      z-index: 2;
+      max-width: 820px;
+    }
+    .cta__title {
+      font-family: var(--display);
+      font-size: clamp(3rem, 10vw, 7.5rem);
+      line-height: 0.92;
+      letter-spacing: 0.015em;
+      margin-bottom: 1.25rem;
+    }
+    .cta__sub {
+      font-size: clamp(0.9rem, 2vw, 1.1rem);
+      font-weight: 300;
+      color: rgba(240,232,216,0.62);
+      margin-bottom: 2.5rem;
+      max-width: 34ch;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      background: #070707;
+      padding: clamp(3rem, 7vw, 5rem) clamp(1.5rem, 6vw, 6rem) 2rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .footer__inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+    @media (min-width: 768px) {
+      .footer__inner { grid-template-columns: 2fr 1fr 1fr; gap: 4rem; }
+    }
+
+    .footer__wordmark {
+      font-family: var(--display);
+      font-size: clamp(2rem, 5vw, 3rem);
+      letter-spacing: 0.08em;
+      line-height: 1;
+      margin-bottom: 0.75rem;
+    }
+    .footer__wordmark em { color: var(--accent); font-style: normal; }
+
+    .footer__tagline {
+      font-size: 0.85rem;
+      color: var(--muted);
+      font-weight: 300;
+      max-width: 28ch;
+      line-height: 1.6;
+    }
+    .footer__col-label {
+      font-size: 0.67rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    .footer__col-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .footer__col-links a,
+    .footer__col-links span {
+      font-size: 0.85rem;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+    .footer__col-links a:hover { color: var(--white); }
+
+    .footer__bottom {
+      max-width: 1400px;
+      margin: 2.5rem auto 0;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem 2rem;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer__demo {
+      font-size: 0.72rem;
+      color: rgba(110,101,96,0.55);
+      font-style: italic;
+    }
+    .footer__copy {
+      font-size: 0.72rem;
+      color: rgba(110,101,96,0.35);
+    }
+
+    /* ===== SCROLL ANIMATIONS ===== */
+    [data-anim] {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    [data-anim="left"]  { transform: translateX(-28px); }
+    [data-anim="right"] { transform: translateX(28px); }
+    [data-anim].visible { opacity: 1; transform: none; }
+
+    [data-d="1"] { transition-delay: 0.08s; }
+    [data-d="2"] { transition-delay: 0.16s; }
+    [data-d="3"] { transition-delay: 0.24s; }
+    [data-d="4"] { transition-delay: 0.32s; }
+    [data-d="5"] { transition-delay: 0.40s; }
+    [data-d="6"] { transition-delay: 0.48s; }
+  </style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<nav class="nav" id="nav" aria-label="Hoofdnavigatie">
+  <a href="#hero" class="nav__wordmark">LES <em>TI</em>GRES</a>
+
+  <ul class="nav__links" role="list">
+    <li><a href="#lessen">Lessen</a></li>
+    <li><a href="#dansstijlen">Dans stijlen</a></li>
+    <li><a href="#over">Over ons</a></li>
+    <li><a href="#agenda">Agenda</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+
+  <button class="nav__burger" id="burger" aria-label="Menu openen" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="nav__drawer" id="drawer" aria-hidden="true" role="dialog" aria-label="Navigatie menu">
+  <a href="#lessen"      class="drawer-link">Lessen</a>
+  <a href="#dansstijlen" class="drawer-link">Dans stijlen</a>
+  <a href="#over"        class="drawer-link">Over ons</a>
+  <a href="#agenda"      class="drawer-link">Agenda</a>
+  <a href="#contact"     class="drawer-link">Contact</a>
+</div>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="hero" aria-label="Welkom bij Les Tigres">
+  <div class="hero__bg" id="heroBg" role="img" aria-label="Les Tigres groot eindoptreden in Theater De Purmaryn"></div>
+  <div class="hero__content">
+    <p class="hero__eyebrow">Dansschool Purmerend</p>
+    <h1 class="hero__title">DANS<br>ZIT IN<br>ONS<br><span class="accent">BLOED.</span></h1>
+    <p class="hero__sub">Purmerends meest legendarische dansschool, al decennia op het podium.</p>
+    <div class="hero__ctas">
+      <a href="#dansstijlen" class="btn btn--primary">Bekijk de lessen</a>
+      <a href="#contact"     class="btn btn--ghost">Plan een proefles</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== LEGACY STRIP ===== -->
+<section class="legacy" aria-label="Onze prestaties">
+  <div class="legacy__statement">
+    <h2 class="legacy__headline" data-anim>
+      Gouden plaat. Nummer&nbsp;1 hit. Al decennia lang de beste danslessen van Purmerend.
+    </h2>
+  </div>
+  <div class="legacy__tape" aria-hidden="true">
+    <div class="legacy__marquee">
+      <span>Gouden Plaat</span><span class="sep">/</span>
+      <span>Nummer 1 Hit</span><span class="sep">/</span>
+      <span>3 Top 40 Hits</span><span class="sep">/</span>
+      <span>Follow The Leader</span><span class="sep">/</span>
+      <span>3 Weken Op #1</span><span class="sep">/</span>
+      <span>Theater De Purmaryn</span><span class="sep">/</span>
+      <span>Soca Boys</span><span class="sep">/</span>
+      <span>Gouden Plaat</span><span class="sep">/</span>
+      <span>Nummer 1 Hit</span><span class="sep">/</span>
+      <span>3 Top 40 Hits</span><span class="sep">/</span>
+      <span>Follow The Leader</span><span class="sep">/</span>
+      <span>3 Weken Op #1</span><span class="sep">/</span>
+      <span>Theater De Purmaryn</span><span class="sep">/</span>
+      <span>Soca Boys</span><span class="sep">/</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== DANSSTIJLEN ===== -->
+<section class="dansstijlen" id="dansstijlen" aria-labelledby="dansstijlen-title">
+  <p class="section-label" data-anim>Wat we dansen</p>
+  <h2 class="section-title" id="dansstijlen-title" data-anim data-d="1">DANS<br>STIJLEN</h2>
+
+  <div class="styles-grid" role="list">
+    <article class="sc sc--w2" role="listitem" data-anim>
+      <span class="sc__num" aria-hidden="true">01</span>
+      <h3 class="sc__name">Streetdance</h3>
+      <p class="sc__desc">Urban. Raw. Ontembaar.</p>
+    </article>
+    <article class="sc" role="listitem" data-anim data-d="1">
+      <span class="sc__num" aria-hidden="true">02</span>
+      <h3 class="sc__name">Hip Hop</h3>
+      <p class="sc__desc">Ritme als taal.</p>
+    </article>
+    <article class="sc" role="listitem" data-anim data-d="2">
+      <span class="sc__num" aria-hidden="true">03</span>
+      <h3 class="sc__name">Showdance</h3>
+      <p class="sc__desc">Podium in het bloed.</p>
+    </article>
+    <article class="sc sc--w2" role="listitem" data-anim data-d="1">
+      <span class="sc__num" aria-hidden="true">04</span>
+      <h3 class="sc__name">Pre Ballet</h3>
+      <p class="sc__desc">Eerste stappen op spitzen.</p>
+    </article>
+    <article class="sc" role="listitem" data-anim data-d="2">
+      <span class="sc__num" aria-hidden="true">05</span>
+      <h3 class="sc__name">Klassiek Ballet</h3>
+      <p class="sc__desc">Techniek en gratie.</p>
+    </article>
+    <article class="sc" role="listitem" data-anim data-d="3">
+      <span class="sc__num" aria-hidden="true">06</span>
+      <h3 class="sc__name">Power Dance</h3>
+      <p class="sc__desc">Bodyshape. Kracht. Energie.</p>
+    </article>
+    <article class="sc sc--w2" role="listitem" data-anim data-d="2">
+      <span class="sc__num" aria-hidden="true">07</span>
+      <h3 class="sc__name">Afrodance</h3>
+      <p class="sc__desc">Roots. Vreugde. Beweging.</p>
+    </article>
+    <article class="sc sc--w2" role="listitem" data-anim data-d="3">
+      <span class="sc__num" aria-hidden="true">08</span>
+      <h3 class="sc__name">K-Pop</h3>
+      <p class="sc__desc">K-Pop vibes. Non-stop.</p>
+    </article>
+  </div>
+</section>
+
+<!-- ===== VOOR WIE ===== -->
+<section id="lessen" aria-labelledby="voorwie-title">
+  <div class="voorwie__header">
+    <p class="section-label" data-anim>Lessen voor</p>
+    <h2 class="section-title" id="voorwie-title" data-anim data-d="1">VOOR<br>WIE?</h2>
+  </div>
+  <div class="voorwie">
+    <div class="voorwie__panels">
+
+      <div class="vp">
+        <div class="vp__bg"
+             style="background-image:url('https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=1200')"
+             role="img" aria-label="Jonge balletdansers in de studio"></div>
+        <div class="vp__content" data-anim>
+          <span class="vp__num">01</span>
+          <h3 class="vp__title">Kinderen</h3>
+          <p class="vp__desc">Vanaf 3 jaar. Spelen, bewegen, stralen.</p>
+        </div>
+      </div>
+
+      <div class="vp">
+        <div class="vp__bg"
+             style="background-image:url('https://images.unsplash.com/photo-1547153760-18fc86324498?w=1200')"
+             role="img" aria-label="Tiener dansers in urban stijl"></div>
+        <div class="vp__content" data-anim data-d="2">
+          <span class="vp__num">02</span>
+          <h3 class="vp__title">Tieners</h3>
+          <p class="vp__desc">Vind je stijl. Vind je stem op de vloer.</p>
+        </div>
+      </div>
+
+      <div class="vp">
+        <div class="vp__bg"
+             style="background-image:url('https://images.unsplash.com/photo-1518834107812-67b0b7c58434?w=1200')"
+             role="img" aria-label="Volwassen danser in actie op het podium"></div>
+        <div class="vp__content" data-anim data-d="3">
+          <span class="vp__num">03</span>
+          <h3 class="vp__title">Volwassenen</h3>
+          <p class="vp__desc">Nooit te laat om te dansen. Serieus.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== OVER LES TIGRES ===== -->
+<section class="over" id="over" aria-labelledby="over-title">
+  <div class="over__inner">
+
+    <div class="over__photo-wrap" data-anim="left">
+      <img
+        src="IMG-20180711-WA0016.jpg"
+        alt="Jonge dansers van Les Tigres backstage bij de jaarlijkse eindshow"
+        class="over__photo"
+      />
+      <div class="over__badge">Theater De Purmaryn</div>
+    </div>
+
+    <div class="over__text" data-anim="right">
+      <p class="section-label">Ons verhaal</p>
+      <h2 class="over__title" id="over-title">MEER DAN EEN DANSSCHOOL.</h2>
+      <div class="over__body">
+        <p>Les Tigres ontstond uit twee showballets onder leiding van <strong>Edesta</strong>. Wat begon als pure passie groeide uit tot een van de meest legendarische dansscholen van Noord-Holland.</p>
+        <p>Samen met de <strong>Soca Boys</strong> behaalden we drie Top 40 hits. Ons nummer <strong>Follow The Leader</strong> stond <strong>drie weken op nummer 1</strong> in de hitlijsten en leverde ons een <strong>gouden plaat</strong> op.</p>
+        <p>We traden op in binnen- en buitenland. En elk jaar sluiten we het seizoen af met een grote eindshow in <strong>Theater De Purmaryn</strong>. Dat is geen traditie. Dat is wie we zijn.</p>
+      </div>
+      <div class="over__stats">
+        <div>
+          <div class="stat__num">3x</div>
+          <div class="stat__label">Top 40 Hits</div>
+        </div>
+        <div>
+          <div class="stat__num">#1</div>
+          <div class="stat__label">Follow The Leader</div>
+        </div>
+        <div>
+          <div class="stat__num gold">GOUD</div>
+          <div class="stat__label">Gouden Plaat</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== AGENDA ===== -->
+<section class="agenda" id="agenda" aria-labelledby="agenda-title">
+  <div class="agenda__inner">
+    <p class="section-label" data-anim>Wanneer</p>
+    <h2 class="section-title" id="agenda-title" data-anim data-d="1">AGENDA</h2>
+
+    <div class="agenda__list" role="list">
+
+      <div class="agenda__item" role="listitem" data-anim data-d="1">
+        <div class="agenda__num" aria-hidden="true">01</div>
+        <div class="agenda__body">
+          <span class="agenda__tag">Wekelijks</span>
+          <h3 class="agenda__event">Streetdance voor kleintjes</h3>
+          <p class="agenda__meta">Dinsdag 15:00 en vrijdag 15:30 / Leeftijd 4, 5 en 6 jaar</p>
+        </div>
+      </div>
+
+      <div class="agenda__item" role="listitem" data-anim data-d="2">
+        <div class="agenda__num" aria-hidden="true">02</div>
+        <div class="agenda__body">
+          <span class="agenda__tag">Eindshow 2026</span>
+          <h3 class="agenda__event">Les Tigres in Theater De Purmaryn</h3>
+          <p class="agenda__meta">Zondag 31 mei 2026, 15:00 / Theater De Purmaryn, Purmerend</p>
+        </div>
+      </div>
+
+      <div class="agenda__item" role="listitem" data-anim data-d="3">
+        <div class="agenda__num" aria-hidden="true">03</div>
+        <div class="agenda__body">
+          <span class="agenda__tag">Zaalverhuur</span>
+          <h3 class="agenda__event">Zaal beschikbaar voor huur</h3>
+          <p class="agenda__meta">Ochtenden beschikbaar / Neem contact op voor beschikbaarheid</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="cta" id="contact" aria-labelledby="cta-title">
+  <div class="cta__bg" role="img" aria-label="Danseres in silhouet op het podium"></div>
+  <div class="cta__content" data-anim>
+    <h2 class="cta__title" id="cta-title">KOM EEN PROEFLES DOEN.</h2>
+    <p class="cta__sub">De eerste les is altijd het spannendst. Maar ook de beste.</p>
+    <a href="https://lestigres.nl" target="_blank" rel="noopener noreferrer" class="btn btn--primary btn--lg">
+      Plan jouw proefles
+    </a>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer" aria-label="Siteinfo">
+  <div class="footer__inner">
+    <div>
+      <div class="footer__wordmark">LES <em>TI</em>GRES</div>
+      <p class="footer__tagline">Dansschool voor kinderen, tieners en volwassenen in het hart van Purmerend.</p>
+    </div>
+    <div>
+      <div class="footer__col-label">Snel naar</div>
+      <ul class="footer__col-links" role="list">
+        <li><a href="#dansstijlen">Dans stijlen</a></li>
+        <li><a href="#lessen">Voor wie</a></li>
+        <li><a href="#over">Over ons</a></li>
+        <li><a href="#agenda">Agenda</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer__col-label">Contact</div>
+      <ul class="footer__col-links" role="list">
+        <li><a href="https://lestigres.nl" target="_blank" rel="noopener noreferrer">lestigres.nl</a></li>
+        <li><span>Purmerend</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <span class="footer__demo">Dit is een gratis demo. Volledige website na akkoord beschikbaar.</span>
+    <span class="footer__copy">Les Tigres, Purmerend</span>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll state
+  const nav    = document.getElementById('nav');
+  const heroBg = document.getElementById('heroBg');
+
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 50);
+    if (window.scrollY < window.innerHeight && heroBg) {
+      heroBg.style.transform = 'scale(1.06) translateY(' + (window.scrollY * 0.12) + 'px)';
+    }
+  }, { passive: true });
+
+  // Hamburger / drawer
+  const burger  = document.getElementById('burger');
+  const drawer  = document.getElementById('drawer');
+
+  function closeDrawer() {
+    burger.classList.remove('open');
+    drawer.classList.remove('open');
+    burger.setAttribute('aria-expanded', 'false');
+    drawer.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  burger.addEventListener('click', () => {
+    const isOpen = drawer.classList.contains('open');
+    if (isOpen) {
+      closeDrawer();
+    } else {
+      burger.classList.add('open');
+      drawer.classList.add('open');
+      burger.setAttribute('aria-expanded', 'true');
+      drawer.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+  });
+
+  document.querySelectorAll('.drawer-link').forEach(link => {
+    link.addEventListener('click', closeDrawer);
+  });
+
+  // Close drawer on Escape
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeDrawer();
+  });
+
+  // Scroll animations via IntersectionObserver
+  const animEls = document.querySelectorAll('[data-anim]');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  animEls.forEach(el => io.observe(el));
+</script>
+</body>
+</html>
