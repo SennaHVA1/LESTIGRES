@@ -625,6 +625,139 @@
       margin-right: auto;
     }
 
+    /* ===== CONTACT ===== */
+    .contact {
+      padding: clamp(5rem, 12vw, 9rem) clamp(1.5rem, 6vw, 6rem);
+    }
+    .contact__inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: clamp(2.5rem, 6vw, 5rem);
+      align-items: start;
+    }
+    @media (min-width: 768px) {
+      .contact__inner { grid-template-columns: 45fr 55fr; }
+    }
+
+    .contact__intro {
+      font-size: clamp(0.9rem, 1.7vw, 1.05rem);
+      font-weight: 300;
+      line-height: 1.8;
+      color: rgba(240,232,216,0.78);
+      max-width: 38ch;
+      margin-top: -1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .contact__details {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+    }
+    .contact__details li {
+      padding: 1.1rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    .contact__details li:first-child { border-top: 1px solid rgba(255,255,255,0.07); }
+    .contact__detail-label {
+      font-size: 0.67rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .contact__detail-value {
+      font-family: var(--display);
+      font-size: clamp(1.3rem, 3vw, 1.9rem);
+      letter-spacing: 0.03em;
+      transition: color 0.2s;
+    }
+    a.contact__detail-value:hover { color: var(--accent); }
+
+    .contact__form {
+      background: var(--off-black);
+      border: 1px solid rgba(255,255,255,0.07);
+      padding: clamp(1.75rem, 4vw, 3rem);
+    }
+    .contact__form-title {
+      font-family: var(--display);
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      letter-spacing: 0.03em;
+      line-height: 1;
+      margin-bottom: 1.75rem;
+    }
+
+    .field { margin-bottom: 1.25rem; }
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0 1.25rem;
+    }
+    @media (min-width: 600px) {
+      .field-row { grid-template-columns: 1fr 1fr; }
+    }
+
+    .field label {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(240,232,216,0.65);
+      margin-bottom: 0.45rem;
+    }
+    .field .optional {
+      text-transform: none;
+      letter-spacing: 0.04em;
+      font-weight: 400;
+      color: var(--muted);
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      background: var(--black);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--white);
+      font-family: var(--body);
+      font-size: 0.95rem;
+      font-weight: 300;
+      padding: 0.85rem 1rem;
+      min-height: 48px;
+      border-radius: 0;
+      transition: border-color 0.2s;
+    }
+    .field textarea { resize: vertical; min-height: 110px; }
+    .field input::placeholder,
+    .field textarea::placeholder { color: rgba(110,101,96,0.7); }
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    .field select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23FF3300' stroke-width='2'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      cursor: pointer;
+    }
+
+    .contact__submit { width: 100%; justify-content: center; margin-top: 0.5rem; }
+    .contact__form-note {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 0.9rem;
+      text-align: center;
+    }
+
     /* ===== FOOTER ===== */
     .footer {
       background: #070707;
@@ -962,14 +1095,85 @@
 </section>
 
 <!-- ===== CTA ===== -->
-<section class="cta" id="contact" aria-labelledby="cta-title">
+<section class="cta" id="proefles" aria-labelledby="cta-title">
   <div class="cta__bg" role="img" aria-label="Danseres in silhouet op het podium"></div>
   <div class="cta__content" data-anim>
     <h2 class="cta__title" id="cta-title">KOM EEN PROEFLES DOEN.</h2>
     <p class="cta__sub">De eerste les is altijd het spannendst. Maar ook de beste.</p>
-    <a href="https://lestigres.nl" target="_blank" rel="noopener noreferrer" class="btn btn--primary btn--lg">
+    <a href="#contact" class="btn btn--primary btn--lg">
       Plan jouw proefles
     </a>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section class="contact" id="contact" aria-labelledby="contact-title">
+  <div class="contact__inner">
+
+    <div class="contact__info" data-anim="left">
+      <p class="section-label">Neem contact op</p>
+      <h2 class="section-title" id="contact-title">CONTACT</h2>
+      <p class="contact__intro">Vragen over de lessen of direct een proefles plannen? Bel, mail of vul het formulier in. We reageren snel.</p>
+
+      <ul class="contact__details" role="list">
+        <li>
+          <span class="contact__detail-label">Telefoon</span>
+          <a href="tel:0299472656" class="contact__detail-value">0299 - 472 656</a>
+        </li>
+        <li>
+          <span class="contact__detail-label">E-mail</span>
+          <a href="mailto:info@lestigres.nl" class="contact__detail-value">info@lestigres.nl</a>
+        </li>
+        <li>
+          <span class="contact__detail-label">Locatie</span>
+          <span class="contact__detail-value">Purmerend</span>
+        </li>
+      </ul>
+    </div>
+
+    <form class="contact__form" id="proeflesForm" data-anim="right" aria-label="Proefles aanvragen">
+      <h3 class="contact__form-title">PLAN JOUW PROEFLES</h3>
+
+      <div class="field">
+        <label for="f-naam">Naam</label>
+        <input type="text" id="f-naam" name="naam" required autocomplete="name" placeholder="Je naam" />
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="f-email">E-mail</label>
+          <input type="email" id="f-email" name="email" required autocomplete="email" placeholder="jij@voorbeeld.nl" />
+        </div>
+        <div class="field">
+          <label for="f-tel">Telefoon <span class="optional">(optioneel)</span></label>
+          <input type="tel" id="f-tel" name="telefoon" autocomplete="tel" placeholder="06 12345678" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="f-stijl">Dansstijl</label>
+        <select id="f-stijl" name="dansstijl">
+          <option value="Weet ik nog niet">Weet ik nog niet</option>
+          <option>Streetdance</option>
+          <option>Hip Hop</option>
+          <option>Showdance</option>
+          <option>Pre Ballet</option>
+          <option>Klassiek Ballet</option>
+          <option>Power Dance</option>
+          <option>Afrodance</option>
+          <option>K-Pop</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="f-bericht">Bericht <span class="optional">(optioneel)</span></label>
+        <textarea id="f-bericht" name="bericht" rows="4" placeholder="Bijv. leeftijd, gewenste lesdag, of een vraag"></textarea>
+      </div>
+
+      <button type="submit" class="btn btn--primary btn--lg contact__submit">Verstuur aanvraag</button>
+      <p class="contact__form-note">Je e-mailprogramma opent met een ingevuld bericht aan info@lestigres.nl.</p>
+    </form>
+
   </div>
 </section>
 
@@ -992,7 +1196,8 @@
     <div>
       <div class="footer__col-label">Contact</div>
       <ul class="footer__col-links" role="list">
-        <li><a href="https://lestigres.nl" target="_blank" rel="noopener noreferrer">lestigres.nl</a></li>
+        <li><a href="tel:0299472656">0299 - 472 656</a></li>
+        <li><a href="mailto:info@lestigres.nl">info@lestigres.nl</a></li>
         <li><span>Purmerend</span></li>
       </ul>
     </div>
@@ -1061,6 +1266,32 @@
   }, { threshold: 0.12 });
 
   animEls.forEach(el => io.observe(el));
+
+  // Proefles-formulier: opent e-mailprogramma met ingevuld bericht
+  const form = document.getElementById('proeflesForm');
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const naam     = data.get('naam');
+    const email    = data.get('email');
+    const telefoon = data.get('telefoon');
+    const stijl    = data.get('dansstijl');
+    const bericht  = data.get('bericht');
+
+    const body =
+      'Hoi Les Tigres,\n\n' +
+      'Ik wil graag een proefles plannen.\n\n' +
+      'Naam: ' + naam + '\n' +
+      'E-mail: ' + email + '\n' +
+      (telefoon ? 'Telefoon: ' + telefoon + '\n' : '') +
+      'Dansstijl: ' + stijl + '\n' +
+      (bericht ? '\n' + bericht + '\n' : '') +
+      '\nGroetjes,\n' + naam;
+
+    window.location.href = 'mailto:info@lestigres.nl'
+      + '?subject=' + encodeURIComponent('Proefles aanvraag — ' + naam)
+      + '&body=' + encodeURIComponent(body);
+  });
 </script>
 </body>
 </html>
